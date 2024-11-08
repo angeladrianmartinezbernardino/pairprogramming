@@ -9,11 +9,17 @@ export default class View {
     this.addTodoForm = new AddTodo();
     this.modal = new Modal();
     this.filters = new Filters();
-    
+    this.toggleBgButton = document.getElementById('toggle-bg'); // Botón de cambio de fondo
 
+    // Arreglo de colores de fondo
+    this.backgroundColors = ['rgb(48, 48, 48)', '#333', '#4a4a4a', '#555', '#2c3e50'];
+    this.currentColorIndex = 0;
+
+    // Configuración de eventos
     this.addTodoForm.onClick((title, description) => this.addTodo(title, description));
     this.modal.onClick((id, values) => this.editTodo(id, values));
     this.filters.onClick((filters) => this.filter(filters));
+    this.toggleBgButton.addEventListener('click', () => this.toggleBackgroundColor());
   }
 
   setModel(model) {
@@ -23,6 +29,12 @@ export default class View {
   render() {
     const todos = this.model.getTodos();
     todos.forEach((todo) => this.createRow(todo));
+  }
+
+  toggleBackgroundColor() {
+    // Cambiar el color de fondo según el índice actual
+    this.currentColorIndex = (this.currentColorIndex + 1) % this.backgroundColors.length;
+    document.body.style.backgroundColor = this.backgroundColors[this.currentColorIndex];
   }
 
   filter(filters) {
@@ -80,10 +92,8 @@ export default class View {
       <td>${todo.title}</td>
       <td>${todo.description}</td>
       <td class="text-center">
-
       </td>
       <td class="text-right">
-
       </td>
     `;
 
