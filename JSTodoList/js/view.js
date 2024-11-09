@@ -86,23 +86,26 @@ export default class View {
   }
 
   createRow(todo) {
-    const row = table.insertRow();
+    const row = this.table.insertRow();
     row.setAttribute('id', todo.id);
+  
+    const isPastDue = new Date(todo.dueDate) < new Date();
+    const dueDateText = todo.dueDate ? `<span ${isPastDue ? 'style="color: red;"' : ''}>${todo.dueDate}</span>` : 'No date';
+  
     row.innerHTML = `
       <td>${todo.title}</td>
       <td>${todo.description}</td>
+      <td class="text-center">${dueDateText}</td>
       <td class="text-center">
+        <input type="checkbox" ${todo.completed ? 'checked' : ''}>
       </td>
       <td class="text-right">
       </td>
     `;
-
-    const checkbox = document.createElement('input');
-    checkbox.type = 'checkbox';
-    checkbox.checked = todo.completed;
+  
+    const checkbox = row.children[3].children[0];
     checkbox.onclick = () => this.toggleCompleted(todo.id);
-    row.children[2].appendChild(checkbox);
-
+  
     const editBtn = document.createElement('button');
     editBtn.classList.add('btn', 'btn-primary', 'mb-1');
     editBtn.innerHTML = '<i class="fa fa-pencil"></i>';
@@ -110,16 +113,17 @@ export default class View {
     editBtn.setAttribute('data-target', '#modal');
     editBtn.onclick = () => this.modal.setValues({
       id: todo.id,
-      title: row.children[0].innerText,
-      description: row.children[1].innerText,
-      completed: row.children[2].children[0].checked,
+      title: todo.title,
+      description: todo.description,
+      dueDate: todo.dueDate,
+      completed: todo.completed,
     });
-    row.children[3].appendChild(editBtn);
-
+    row.children[4].appendChild(editBtn);
+  
     const removeBtn = document.createElement('button');
     removeBtn.classList.add('btn', 'btn-danger', 'mb-1', 'ml-1');
     removeBtn.innerHTML = '<i class="fa fa-trash"></i>';
     removeBtn.onclick = () => this.removeTodo(todo.id);
-    row.children[3].appendChild(removeBtn);
+    row.children[4].appendChild(removeBtn);
   }
 }
