@@ -51,6 +51,7 @@ export default class Model {
       id: this.currentId++,
       title,
       description,
+      dueDate, // Nueva propiedad
       completed: false,
     }
 
