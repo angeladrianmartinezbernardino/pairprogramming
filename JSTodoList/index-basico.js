@@ -14,7 +14,7 @@ function removeTodo(id){
 function addTodo(){
     if(title.value === '' || description.value===''){
         alert.classList.remove('d-none');
-        alert.innerText = 'Titulo y descripcion necesidad';
+        alert.innerText = 'Titulo, descripión y fecha se necesitan';
         return;
     }
 

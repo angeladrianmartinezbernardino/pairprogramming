@@ -23,7 +23,7 @@ export default class Modal {
     this.btn.onclick = () => {
       const dueDate = document.getElementById('modal-due-date').value;
       if (!this.title.value || !this.description.value) {
-        this.alert.show('Title and description are required');
+        this.alert.show('Title, description and date are required');
         return;
       }
   
