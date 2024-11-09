@@ -13,7 +13,7 @@ export default class AddTodo {
     this.btn.onclick = () => {
       const dueDate = document.getElementById('due-date').value;
       if (this.title.value === '' || this.description.value === '') {
-        this.alert.show('Title and description are required');
+        this.alert.show('Title, description and date are required');
       } else {
         this.alert.hide();
         callback(this.title.value, this.description.value, dueDate);

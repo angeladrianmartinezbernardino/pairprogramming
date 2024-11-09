@@ -16,7 +16,7 @@ export default class View {
     this.currentColorIndex = 0;
 
     // Configuración de eventos
-    this.addTodoForm.onClick((title, description) => this.addTodo(title, description));
+    this.addTodoForm.onClick((title, description, dueDate) => this.addTodo(title, description, dueDate));
     this.modal.onClick((id, values) => this.editTodo(id, values));
     this.filters.onClick((filters) => this.filter(filters));
     this.toggleBgButton.addEventListener('click', () => this.toggleBackgroundColor());
@@ -63,10 +63,10 @@ export default class View {
     }
   }
 
-  addTodo(title, description) {
-    const todo = this.model.addTodo(title, description);
+  addTodo(title, description, dueDate) {
+    const todo = this.model.addTodo(title, description, dueDate); // Asegúrate de incluir dueDate aquí
     this.createRow(todo);
-  }
+  }   
 
   toggleCompleted(id) {
     this.model.toggleCompleted(id);

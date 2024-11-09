@@ -46,21 +46,20 @@ export default class Model {
     this.save();
   }
 
-  addTodo(title, description) {
+  addTodo(title, description, dueDate) {
     const todo = {
       id: this.currentId++,
       title,
       description,
-      dueDate, // Nueva propiedad
+      dueDate, // Se asegura de almacenar dueDate correctamente
       completed: false,
-    }
-
+    };
+  
     this.todos.push(todo);
-    console.log(this.todos);
     this.save();
-
-    return {...todo};
-  }
+  
+    return { ...todo };
+  }  
 
   removeTodo(id) {
     const index = this.findTodo(id);
